@@ -24,14 +24,17 @@ public class CustomerRepository {
 
     public List<Customer> findAll() {
         return jdbcClient
-                .sql("SELECT id, name, email, phone FROM customers")
+                .sql("""
+                        SELECT id, name, email, phone FROM customers ORDER BY id""")
+
                 .query(Customer.class)
                 .list();
     }
 
     public Optional<Customer> findById(Long id) {
         return jdbcClient
-                .sql("SELECT id, name, email, phone FROM customers WHERE id = :id")
+                .sql("""
+                        SELECT id, name, email, phone FROM customers WHERE id = :id""")
                 .param("id", id)
                 .query(Customer.class)
                 .optional();
@@ -39,7 +42,8 @@ public class CustomerRepository {
 
     public boolean emailExists(String email) {
         return jdbcClient
-                .sql("SELECT id, name, email, phone FROM customers WHERE email = :email")
+                .sql("""
+                        SELECT id, name, email, phone FROM customers WHERE email = :email""")
                 .param("email", email)
                 .query(Customer.class)
                 .optional()
@@ -49,7 +53,8 @@ public class CustomerRepository {
 
     public boolean update(Long id, UpdateCustomerRequest updateCustomerRequest) {
         int rows =  jdbcClient
-                .sql("UPDATE customers SET name = :name, email = :email, phone = :phone WHERE id = :id")
+                .sql("""
+                        UPDATE customers SET name = :name, email = :email, phone = :phone WHERE id = :id""")
                 .param("name", updateCustomerRequest.name())
                 .param("email", updateCustomerRequest.email())
                 .param("phone", updateCustomerRequest.phone())

@@ -31,7 +31,7 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public Customer findById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer id with 99 not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer id with " + id + " not found"));
     }
 
     @Transactional
@@ -56,8 +56,8 @@ public class CustomerService {
 
     @Transactional
     public Customer create(CreateCustomerRequest customerRequest) {
-        boolean created = customerRepository.emailExists(customerRequest.email());
-        if(created) {
+        boolean emailExists = customerRepository.emailExists(customerRequest.email());
+        if(emailExists) {
             throw new DuplicateResourceException("Customer with email " + customerRequest.email() + " already exists");
         }
         return  customerRepository.save(customerRequest);

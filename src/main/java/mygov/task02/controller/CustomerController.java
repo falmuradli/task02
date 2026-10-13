@@ -9,6 +9,7 @@ import mygov.task02.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.ServerResponse;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collection;
@@ -37,11 +38,16 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody CreateCustomerRequest customerRequest) {
-        Customer created = customerService.create(customerRequest);
+        Customer createdCustomer = customerService.create(customerRequest);
 
-        URI location = URI.create("/api/v1/customers/" + created.id());
+        URI location =  ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdCustomer.id())
+                .toUri();
 
-        return ResponseEntity.created(location).body(created);
+
+        return ResponseEntity.created(location).body(createdCustomer);
     }
 
     @DeleteMapping("/{id}")
