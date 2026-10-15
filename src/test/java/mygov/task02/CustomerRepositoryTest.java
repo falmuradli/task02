@@ -5,16 +5,12 @@ import mygov.task02.dto.UpdateCustomerRequest;
 import mygov.task02.model.Customer;
 import mygov.task02.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.jdbc.test.autoconfigure.JdbcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestConstructor;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +41,7 @@ public class CustomerRepositoryTest {
     @Test
     void findById_existingId_returnsCustomer(){
         Optional<Customer> result = customerRepository.findById(1L);
-        assertThat(result.isPresent());
+        assertThat(result).isPresent();
         Customer customer = result.get();
         assertEquals("faiq@idda.az", customer.email());
     }
@@ -54,7 +50,7 @@ public class CustomerRepositoryTest {
     void findById_missingId_returnsEmpty() {
         Optional<Customer> result = customerRepository.findById(99L);
 
-        assertThat(result.isEmpty()).isTrue();
+        assertThat(result).isEmpty();
     }
 
     @Test
