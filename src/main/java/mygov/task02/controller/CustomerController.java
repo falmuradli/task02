@@ -4,11 +4,9 @@ import jakarta.validation.Valid;
 import mygov.task02.dto.CreateCustomerRequest;
 import mygov.task02.dto.UpdateCustomerRequest;
 import mygov.task02.model.Customer;
-import mygov.task02.repository.CustomerRepository;
 import mygov.task02.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerResponse;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;

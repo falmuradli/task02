@@ -7,6 +7,7 @@ import mygov.task02.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.jdbc.test.autoconfigure.JdbcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestConstructor;
 
 
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @JdbcTest
 @Import(CustomerRepository.class)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@ActiveProfiles("test")
 public class CustomerRepositoryTest {
 
     private final CustomerRepository customerRepository;
@@ -74,7 +76,7 @@ public class CustomerRepositoryTest {
 
         assertThat(saved.id()).isNotNull();
         Optional<Customer> result = customerRepository.findById(saved.id());
-        assertThat(result.isPresent());
+        assertThat(result).isPresent();
         Customer customer = result.get();
         assertEquals(customerRequest.email(), customer.email());
     }

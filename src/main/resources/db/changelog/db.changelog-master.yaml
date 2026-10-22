@@ -22,3 +22,72 @@ databaseChangeLog:
               - column:
                   name: phone
                   type: VARCHAR(50)
+
+  - changeSet:
+      id: 2
+      author: task02
+      changes:
+      - addNotNullConstraint:
+          tableName: customers
+          columnName: name
+          columnDataType: VARCHAR(255)
+
+      - addNotNullConstraint:
+          tableName: customers
+          columnName: email
+          columnDataType: VARCHAR(255)
+
+      - addNotNullConstraint:
+          tableName: customers
+          columnName: phone
+          columnDataType: VARCHAR(50)
+
+      - addUniqueConstraint:
+          tableName: customers
+          columnNames: email
+          constraintName: uq_customers_email
+
+
+  - changeSet:
+      id: 3
+      author: task02
+      changes:
+        - insert:
+            tableName: customers
+            columns:
+              - column:
+                   name: name
+                   value: FAIG ALMURADLI
+              - column:
+                  name: email
+                  value: faiq@idda.az
+              - column:
+                  name: phone
+                  value: "0103898081"
+
+        - insert:
+              tableName: customers
+              columns:
+                - column:
+                    name: name
+                    value: RAUF ASADLI
+                - column:
+                    name: email
+                    value: rauf@ada.edu.az
+                - column:
+                    name: phone
+                    value: "0501111111"
+
+
+        - insert:
+            tableName: customers
+            columns:
+              - column:
+                  name: name
+                  value: ALI HASANOV
+              - column:
+                  name: email
+                  value: ali@ada.edu.az
+              - column:
+                  name: phone
+                  value: "0503333333"
