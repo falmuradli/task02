@@ -68,7 +68,8 @@ public class CustomerRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcClient
-                .sql("INSERT INTO customers (name, email, phone) VALUES (:name, :email, :phone)")
+                .sql("""
+                        INSERT INTO customers (name, email, phone) VALUES (:name, :email, :phone)""")
                 .param("name", createCustomerRequest.name())
                 .param("email", createCustomerRequest.email())
                 .param("phone", createCustomerRequest.phone())
@@ -85,7 +86,8 @@ public class CustomerRepository {
 
     public boolean delete(Long id) {
         int rows = jdbcClient
-                .sql("DELETE FROM customers WHERE id = :id")
+                .sql("""
+                        DELETE FROM customers WHERE id = :id""")
                 .param("id", id)
                 .update();
 
